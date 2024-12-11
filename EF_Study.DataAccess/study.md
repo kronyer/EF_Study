@@ -27,3 +27,9 @@ You need to fix things with the next migration
 ## Remove Nullable from the project or change to false
         <Nullable>enabled</Nullable>
 and then you won't need to use the ? in the properties
+
+
+## Keep small migrations with small changes
+
+## Never remove the migrations from the project, just change things in model
+## You can delete all and start over!
