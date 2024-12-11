@@ -31,5 +31,57 @@ and then you won't need to use the ? in the properties
 
 ## Keep small migrations with small changes
 
-## Never remove the migrations from the project, just change things in model
+## Never delete the migrations from the project, just change things in model => You can delete if you know exactly what you are doing
 ## You can delete all and start over!
+
+## You can rollback the migrations
+        Update-Database LastGoodMigration
+
+
+## commands
+    get-migration
+    delete-database
+
+
+## To change names:
+    Table name => [Table("TableName")]
+    Column name => [Column("ColumnName")]
+
+## To set the column as not nullable
+    [Required]
+
+## To set as a primary key
+    [Key]
+
+## To set lenght of the column
+    [MaxLength(100)]
+
+## to set just computed props
+    [NotMapped]
+
+## To set as a foreign key
+    [ForeignKey("AuthorId")]
+
+## To set the column as unique
+    [Index(IsUnique = true)]
+
+## To set the column as a timestamp
+    [Timestamp]
+    timestamp is used to check if the record was changed by another user
+
+## To set the column as a concurrency check
+    [ConcurrencyCheck]
+
+## To set the column as a row version
+    [Timestamp]
+
+## To set the column as a computed column
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+
+## To set the column as a identity column
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]]
+
+
+
+## After .net 5 you don't need to create an intermediary table
+
