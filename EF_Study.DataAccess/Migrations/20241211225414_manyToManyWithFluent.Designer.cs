@@ -4,6 +4,7 @@ using EF_Study.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Study.DataAccess.Migrations
 {
     [DbContext(typeof(EF_StudyDbContext))]
-    partial class EF_StudyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241211225414_manyToManyWithFluent")]
+    partial class manyToManyWithFluent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasKey("Author_Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
 
                     b.HasData(
                         new
@@ -100,7 +103,7 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasIndex("Publisher_Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
 
                     b.HasData(
                         new
@@ -141,7 +144,7 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasIndex("Book_Id");
 
-                    b.ToTable("BookAuthors", (string)null);
+                    b.ToTable("BookAuthorMap");
                 });
 
             modelBuilder.Entity("EF_Study.Model.BookDetail", b =>
@@ -169,7 +172,7 @@ namespace EF_Study.DataAccess.Migrations
                     b.HasIndex("Book_Id")
                         .IsUnique();
 
-                    b.ToTable("BookDetails", (string)null);
+                    b.ToTable("BookDetails");
                 });
 
             modelBuilder.Entity("EF_Study.Model.Category", b =>
@@ -187,7 +190,7 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasKey("GenreId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("EF_Study.Model.FluentAuthor", b =>
@@ -259,7 +262,7 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasIndex("Book_Id");
 
-                    b.ToTable("FluentBookAuthors", (string)null);
+                    b.ToTable("FluentBookAuthorMap");
                 });
 
             modelBuilder.Entity("EF_Study.Model.FluentBookDetail", b =>
@@ -328,7 +331,7 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasKey("Publisher_Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
 
                     b.HasData(
                         new
@@ -358,7 +361,7 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasKey("SubCategory_Id");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("EF_Study.Model.Book", b =>

@@ -5,24 +5,24 @@
 namespace EF_Study.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addBookDetails : Migration
+    public partial class fluentBook : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BookDetails",
+                name: "Fluent_Book",
                 columns: table => new
                 {
-                    BookDetail_Id = table.Column<int>(type: "int", nullable: false)
+                    BookId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NumberOfChapters = table.Column<int>(type: "int", nullable: false),
-                    NumberOfPages = table.Column<int>(type: "int", nullable: false),
-                    Weight = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ISBN = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookDetails", x => x.BookDetail_Id);
+                    table.PrimaryKey("PK_Fluent_Book", x => x.BookId);
                 });
         }
 
@@ -30,7 +30,7 @@ namespace EF_Study.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BookDetails");
+                name: "Fluent_Book");
         }
     }
 }

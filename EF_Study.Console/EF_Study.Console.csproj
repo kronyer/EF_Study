@@ -13,4 +13,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EF_Study.DataAccess\EF_Study.DataAccess.csproj" />
+    <ProjectReference Include="..\EF_Study.Model\EF_Study.Model.csproj" />
+  </ItemGroup>
+
 </Project>

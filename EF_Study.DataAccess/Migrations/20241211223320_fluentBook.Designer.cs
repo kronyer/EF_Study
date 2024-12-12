@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Study.DataAccess.Migrations
 {
     [DbContext(typeof(EF_StudyDbContext))]
-    [Migration("20241211195053_addBookDetails")]
-    partial class addBookDetails
+    [Migration("20241211223320_fluentBook")]
+    partial class fluentBook
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,29 @@ namespace EF_Study.DataAccess.Migrations
                     b.HasKey("Author_Id");
 
                     b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Author_Id = 1,
+                            BirthDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Christian",
+                            LastName = "Nagel"
+                        },
+                        new
+                        {
+                            Author_Id = 2,
+                            BirthDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Jay",
+                            LastName = "Glynn"
+                        },
+                        new
+                        {
+                            Author_Id = 3,
+                            BirthDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Morgan",
+                            LastName = "Skinner"
+                        });
                 });
 
             modelBuilder.Entity("EF_Study.Model.Book", b =>
@@ -70,10 +93,15 @@ namespace EF_Study.DataAccess.Migrations
                         .HasPrecision(10, 5)
                         .HasColumnType("decimal(10,5)");
 
+                    b.Property<int>("Publisher_Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookId");
+
+                    b.HasIndex("Publisher_Id");
 
                     b.ToTable("Books");
 
@@ -83,6 +111,7 @@ namespace EF_Study.DataAccess.Migrations
                             BookId = 1,
                             ISBN = "9781119449270",
                             Price = 45.00m,
+                            Publisher_Id = 1,
                             Title = "Professional C# 7 and .NET Core 2.0"
                         },
                         new
@@ -90,6 +119,7 @@ namespace EF_Study.DataAccess.Migrations
                             BookId = 2,
                             ISBN = "9781119096603",
                             Price = 45.00m,
+                            Publisher_Id = 1,
                             Title = "Professional C# 6 and .NET Core 1.0"
                         },
                         new
@@ -97,8 +127,24 @@ namespace EF_Study.DataAccess.Migrations
                             BookId = 3,
                             ISBN = "9781593274085",
                             Price = 32.00m,
+                            Publisher_Id = 1,
                             Title = "JavaScript for Kids"
                         });
+                });
+
+            modelBuilder.Entity("EF_Study.Model.BookAuthorMap", b =>
+                {
+                    b.Property<int>("Author_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Book_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Author_Id", "Book_Id");
+
+                    b.HasIndex("Book_Id");
+
+                    b.ToTable("BookAuthorMap");
                 });
 
             modelBuilder.Entity("EF_Study.Model.BookDetail", b =>
@@ -108,6 +154,9 @@ namespace EF_Study.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookDetail_Id"));
+
+                    b.Property<int>("Book_Id")
+                        .HasColumnType("int");
 
                     b.Property<int>("NumberOfChapters")
                         .HasColumnType("int");
@@ -120,10 +169,13 @@ namespace EF_Study.DataAccess.Migrations
 
                     b.HasKey("BookDetail_Id");
 
+                    b.HasIndex("Book_Id")
+                        .IsUnique();
+
                     b.ToTable("BookDetails");
                 });
 
-            modelBuilder.Entity("EF_Study.Model.Cateogory", b =>
+            modelBuilder.Entity("EF_Study.Model.Category", b =>
                 {
                     b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
@@ -139,6 +191,53 @@ namespace EF_Study.DataAccess.Migrations
                     b.HasKey("GenreId");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("EF_Study.Model.FluentBook", b =>
+                {
+                    b.Property<int>("BookId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookId"));
+
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookId");
+
+                    b.ToTable("Fluent_Book", (string)null);
+                });
+
+            modelBuilder.Entity("EF_Study.Model.FluentBookDetail", b =>
+                {
+                    b.Property<int>("BookDetail_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookDetail_Id"));
+
+                    b.Property<int>("NumberOfChapters")
+                        .HasColumnType("int")
+                        .HasColumnName("Chapters");
+
+                    b.Property<int>("NumberOfPages")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookDetail_Id");
+
+                    b.ToTable("Fluent_BookDetails", (string)null);
                 });
 
             modelBuilder.Entity("EF_Study.Model.Publisher", b =>
@@ -159,6 +258,18 @@ namespace EF_Study.DataAccess.Migrations
                     b.HasKey("Publisher_Id");
 
                     b.ToTable("Publishers");
+
+                    b.HasData(
+                        new
+                        {
+                            Publisher_Id = 1,
+                            Name = "Wrox Press"
+                        },
+                        new
+                        {
+                            Publisher_Id = 2,
+                            Name = "No Starch Press"
+                        });
                 });
 
             modelBuilder.Entity("EF_Study.Model.SubCategory", b =>
@@ -177,6 +288,64 @@ namespace EF_Study.DataAccess.Migrations
                     b.HasKey("SubCategory_Id");
 
                     b.ToTable("SubCategories");
+                });
+
+            modelBuilder.Entity("EF_Study.Model.Book", b =>
+                {
+                    b.HasOne("EF_Study.Model.Publisher", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("Publisher_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("EF_Study.Model.BookAuthorMap", b =>
+                {
+                    b.HasOne("EF_Study.Model.Author", "Author")
+                        .WithMany("BookAuthor")
+                        .HasForeignKey("Author_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EF_Study.Model.Book", "Book")
+                        .WithMany("BookAuthor")
+                        .HasForeignKey("Book_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("EF_Study.Model.BookDetail", b =>
+                {
+                    b.HasOne("EF_Study.Model.Book", "Book")
+                        .WithOne("BookDetail")
+                        .HasForeignKey("EF_Study.Model.BookDetail", "Book_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("EF_Study.Model.Author", b =>
+                {
+                    b.Navigation("BookAuthor");
+                });
+
+            modelBuilder.Entity("EF_Study.Model.Book", b =>
+                {
+                    b.Navigation("BookAuthor");
+
+                    b.Navigation("BookDetail");
+                });
+
+            modelBuilder.Entity("EF_Study.Model.Publisher", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

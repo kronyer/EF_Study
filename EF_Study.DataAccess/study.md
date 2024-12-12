@@ -85,3 +85,24 @@ and then you won't need to use the ? in the properties
 
 ## After .net 5 you don't need to create an intermediary table
 
+## To create a many to many relationship
+    public class BookAuthor
+    {
+        public int BookId { get; set; }
+        public Book Book { get; set; }
+        public int AuthorId { get; set; }
+        public Author Author { get; set; }
+    }
+    modelBuilder.Entity<BookAuthor>()
+        .HasKey(ba => new { ba.BookId, ba.AuthorId }); This is a composite key with FluentAPI
+
+
+    modelBuilder.Entity<BookAuthor>()
+        .HasOne(ba => ba.Book)
+        .WithMany(b => b.Authors)
+        .HasForeignKey(ba => ba.BookId);
+    modelBuilder.Entity<BookAuthor>()
+        .HasOne(ba => ba.Author)
+        .WithMany(a => a.Books)
+        .HasForeignKey(ba => ba.AuthorId);
+

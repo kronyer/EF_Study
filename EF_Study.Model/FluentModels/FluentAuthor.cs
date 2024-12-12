@@ -8,20 +8,17 @@ using System.Threading.Tasks;
 
 namespace EF_Study.Model
 {
-    public class Author
+    public class FluentAuthor
     {
-        [Key]
         public int Author_Id { get; set; }
-        [Required]
-        [MaxLength(50)]
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Location { get; set; }
-        [NotMapped]
         public string FullName =>  FirstName + LastName;
-        public List<BookAuthorMap> BookAuthor { get; set; }
+        //public List<FluentBook> Books{ get; set; }
+
+        public List<FluentBookAuthorMap> BookAuthor { get; set; }
 
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EF_Study.Model;
 
-public class Book
+public class FluentBook
 {
     public int BookId { get; set; }
     public string Title { get; set; }
@@ -16,10 +16,10 @@ public class Book
     [MaxLength(20)]
     public string ISBN { get; set; }
     public decimal Price { get; set; }
-    public virtual BookDetail BookDetail { get; set; } //why should i use virtual?
-    [ForeignKey("Publisher")]
+    public virtual FluentBookDetail BookDetail { get; set; } //why should i use virtual?
     public int Publisher_Id { get; set; }
-    public virtual Publisher Publisher { get; set; }
-    public List<BookAuthorMap> BookAuthor { get; set; }
+    public virtual FluentPublisher Publisher { get; set; }
+    //public List<FluentAuthor> Authors { get; set; }
+    public List<FluentBookAuthorMap> BookAuthor { get; set; }
 
 }

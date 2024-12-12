@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EF_Study.Model;
 
 [Table("Categories")]
-public class Cateogory
+public class Category
 {
     [Key]
     public int GenreId { get; set; }
