@@ -106,3 +106,14 @@ and then you won't need to use the ? in the properties
         .WithMany(a => a.Books)
         .HasForeignKey(ba => ba.AuthorId);
 
+
+## IQueryable
+    IQueryable does the query on the database, IEnumerable does the query on the memory
+
+## lazy loading
+    Lazy loading is not enabled by default, you need to enable it in the context
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLazyLoadingProxies();
+    }
+    and then set all the navigation properties to virtual

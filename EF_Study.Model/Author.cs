@@ -20,7 +20,7 @@ namespace EF_Study.Model
         public DateTime BirthDate { get; set; }
         public string Location { get; set; }
         [NotMapped]
-        public string FullName =>  FirstName + LastName;
+        private string FullName =>  FirstName + LastName;
         public List<BookAuthorMap> BookAuthor { get; set; }
 
     }
