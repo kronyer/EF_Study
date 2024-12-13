@@ -20,6 +20,6 @@ public class Book
     [ForeignKey("Publisher")]
     public int Publisher_Id { get; set; }
     public virtual Publisher Publisher { get; set; }
-    public List<BookAuthorMap> BookAuthor { get; set; }
+    public virtual List<BookAuthorMap> BookAuthor { get; set; }
 
 }

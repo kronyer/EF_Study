@@ -21,7 +21,7 @@ namespace EF_Study.Model
         public string Location { get; set; }
         [NotMapped]
         private string FullName =>  FirstName + LastName;
-        public List<BookAuthorMap> BookAuthor { get; set; }
+        public virtual List<BookAuthorMap> BookAuthor { get; set; }
 
     }
 }

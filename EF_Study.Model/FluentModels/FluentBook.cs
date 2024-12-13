@@ -20,6 +20,6 @@ public class FluentBook
     public int Publisher_Id { get; set; }
     public virtual FluentPublisher Publisher { get; set; }
     //public List<FluentAuthor> Authors { get; set; }
-    public List<FluentBookAuthorMap> BookAuthor { get; set; }
+    public virtual List<FluentBookAuthorMap> BookAuthor { get; set; }
 
 }

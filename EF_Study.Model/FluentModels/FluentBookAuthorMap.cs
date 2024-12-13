@@ -6,6 +6,6 @@ public class FluentBookAuthorMap
 {
     public int Book_Id { get; set; }
     public int Author_Id { get; set; }
-    public FluentBook Book { get; set; }
-    public FluentAuthor Author { get; set; }
+    public virtual FluentBook Book { get; set; }
+    public virtual FluentAuthor Author { get; set; }
 }

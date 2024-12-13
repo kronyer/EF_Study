@@ -14,6 +14,6 @@ namespace EF_Study.Model
         [Required]
         public string Name { get; set; }
         public string Location { get; set; }
-        public List<Book> Books { get; set; }
+        public virtual List<Book> Books { get; set; }
     }
 }

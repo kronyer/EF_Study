@@ -18,7 +18,7 @@ namespace EF_Study.Model
         public string FullName =>  FirstName + LastName;
         //public List<FluentBook> Books{ get; set; }
 
-        public List<FluentBookAuthorMap> BookAuthor { get; set; }
+        public virtual List<FluentBookAuthorMap> BookAuthor { get; set; }
 
     }
 }

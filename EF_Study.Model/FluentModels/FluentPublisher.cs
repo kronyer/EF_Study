@@ -12,6 +12,6 @@ namespace EF_Study.Model
         public int Publisher_Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
-        public List<FluentBook> Books { get; set; }
+        public virtual List<FluentBook> Books { get; set; }
     }
 }
